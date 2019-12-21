@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">BudgetExpenseApp</string>
+    <string name="expense_list_text">Expense List</string>
+    <string name="expense_title_text">Expense Title: %s</string>
+    <string name="expense_price_text">Expense Price: %d</string>
+    <string name="expense_limit_text">Expense Limit: %d</string>
+    <string name="expense_edit_text_title">Flight</string>
+    <string name="expense_edit_price">$500.98</string>
+    <string name="edit_text_expense_limit">$1000.00</string>
+    <string name="expense_details_text">Expense Details</string>
+</resources>
