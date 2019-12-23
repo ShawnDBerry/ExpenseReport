@@ -37,7 +37,7 @@ public class ExpenseEntity {
     }
 
 
-    public double getExpenseId() {
+    public int getExpenseId() {
         return expenseId;
     }
 
@@ -67,5 +67,15 @@ public class ExpenseEntity {
 
     public void setExpenseLimit(double expenseLimit) {
         this.expenseLimit = expenseLimit;
+    }
+
+    @Override
+    public String toString() {
+        return "ExpenseEntity{" +
+                "expenseId=" + expenseId +
+                ", expenseTitle='" + expenseTitle + '\'' +
+                ", expensePrice=" + expensePrice +
+                ", expenseLimit=" + expenseLimit +
+                '}';
     }
 }

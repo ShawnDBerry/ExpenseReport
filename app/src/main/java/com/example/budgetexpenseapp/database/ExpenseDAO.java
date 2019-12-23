@@ -22,7 +22,7 @@ public interface ExpenseDAO {
     void deleteExpense(ExpenseEntity expenseEntity);
 
     @Update
-    void modifyExpense(ExpenseEntity expenseEntity);
+    void updateExpense(ExpenseEntity expenseEntity);
 
     @Query("SELECT SUM(expense_price) FROM expenses")
     double getTotalCost();

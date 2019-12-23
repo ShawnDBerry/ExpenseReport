@@ -2,10 +2,16 @@
     <string name="app_name">BudgetExpenseApp</string>
     <string name="expense_list_text">Expense List</string>
     <string name="expense_title_text">Expense Title: %s</string>
-    <string name="expense_price_text">Expense Price: %d</string>
-    <string name="expense_limit_text">Expense Limit: %d</string>
+    <string name="expense_price_text">Expense Price: </string>
+    <string name="expense_limit_text">Expense Limit: </string>
     <string name="expense_edit_text_title">Flight</string>
     <string name="expense_edit_price">$500.98</string>
     <string name="edit_text_expense_limit">$1000.00</string>
     <string name="expense_details_text">Expense Details</string>
+    <string name="new_expense_text">New Expense</string>
+    <string name="save_expense_text">Save Expense</string>
+    <string name="error_text">Error: %s</string>
+    <string name="info_text">Info: %s</string>
+    <string name="total_text">Total: $%s owed.</string>
+    <string name="delete_expense_text">Delete Expense</string>
 </resources>
