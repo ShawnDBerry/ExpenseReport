@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -20,6 +21,7 @@ import com.example.budgetexpenseapp.adapter.ExpenseAdapter;
 import com.example.budgetexpenseapp.database.ExpenseEntity;
 import com.example.budgetexpenseapp.presenter.Contract;
 import com.example.budgetexpenseapp.presenter.ExpensePresenter;
+import com.example.budgetexpenseapp.util.Constants;
 
 import java.util.List;
 
@@ -46,6 +48,23 @@ public class ExpenseListActivity extends AppCompatActivity implements Contract.E
     @BindView(R.id.new_expense_button)
     public Button newExpenseButton;
 
+    BroadcastReceiver createBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            ExpenseEntity expenseEntity = intent.getParcelableExtra(Constants.GET_NEW_EXPENSE_KEY);
+            Log.d("TAG_X", "expenseEntity" + expenseEntity);
+            expensePresenter.insertNewExpense(expenseEntity);
+        }
+    };
+
+    BroadcastReceiver editBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            ExpenseEntity expenseEntity = intent.getParcelableExtra(Constants.DETAIL_EDIT_EXPENSE_KEY);
+            expensePresenter.insertNewExpense(expenseEntity);
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,14 +74,12 @@ public class ExpenseListActivity extends AppCompatActivity implements Contract.E
 
         expensePresenter = new ExpensePresenter(this);
 
-       BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
-           @Override
-           public void onReceive(Context context, Intent intent) {
 
-           }
-       };
 
-        //expensePresenter.insertNewExpense(new ExpenseEntity("Dinner", 50.00, 1000.00));
+       this.registerReceiver(editBroadcastReceiver, new IntentFilter(Constants.NEW_EXPENSE_ACTION));
+       this.registerReceiver(createBroadcastReceiver, new IntentFilter(Constants.DETAIL_EDIT_EXPENSE_ACTION));
+
+        /*expensePresenter.insertNewExpense(new ExpenseEntity("Dinner", 50.00, 1000.00));*/
 
         expensePresenter.getAllExpenses();
         expensePresenter.getTotalCost();
@@ -77,6 +94,13 @@ public class ExpenseListActivity extends AppCompatActivity implements Contract.E
                         .commit();
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        this.unregisterReceiver(createBroadcastReceiver);
+        this.unregisterReceiver(editBroadcastReceiver);
     }
 
     @Override

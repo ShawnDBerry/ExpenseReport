@@ -11,11 +11,13 @@ import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import com.example.budgetexpenseapp.R;
 import com.example.budgetexpenseapp.database.ExpenseEntity;
 import com.example.budgetexpenseapp.presenter.Contract;
+import com.example.budgetexpenseapp.util.Constants;
 
 import java.util.List;
 
@@ -24,8 +26,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class NewExpenseFragement extends Fragment implements Contract.ExpenseView{
-
-    public static final String NEW_EXPENSE_KEY = "new_expense";
 
     @BindView(R.id.new_expense_title_edit_text)
     EditText newExpenseTitleEditview;
@@ -58,11 +58,17 @@ public class NewExpenseFragement extends Fragment implements Contract.ExpenseVie
 
     @OnClick(R.id.save_new_expense_button)
     public void saveExpense(View view){
+
         String expenseTitle = newExpenseTitleEditview.getText().toString().trim();
         String expensePrice = newExpensePriceEditview.getText().toString().trim();
         String expenseLimit = newExpenseLimitEditview.getText().toString().trim();
-        String message = expenseTitle + "," + expensePrice + "," + expenseLimit;
-        Intent intent = new Intent()
+        ExpenseEntity expenseEntity = new ExpenseEntity(expenseTitle, Double.parseDouble(expensePrice),Double.parseDouble(expenseLimit));
+        Intent intent = new Intent(Constants.NEW_EXPENSE_ACTION);
+        intent.setAction(Constants.NEW_EXPENSE_ACTION);
+        intent.putExtra(Constants.GET_NEW_EXPENSE_KEY, expenseEntity);
+        getContext().sendBroadcast(intent);
+        getFragmentManager().popBackStack();
+        Log.d("TAG_X", "expenseEntity" + expenseEntity);
 
     }
     @OnClick(R.id.close_icon_imageview)

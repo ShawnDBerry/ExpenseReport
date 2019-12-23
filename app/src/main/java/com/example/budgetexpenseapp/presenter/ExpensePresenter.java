@@ -115,8 +115,12 @@ public class ExpensePresenter implements Contract.ExpensePresenter {
 
         @Override
         protected Void doInBackground(ExpenseEntity... expenseEntities) {
-            expenseDatabase.expenseDAO().insertNewExpense(expenseEntities[0]);
-            expenseEntityList = expenseDatabase.expenseDAO().getAllExpenses();
+            try {
+                expenseDatabase.expenseDAO().insertNewExpense(expenseEntities[0]);
+                expenseEntityList = expenseDatabase.expenseDAO().getAllExpenses();
+            }catch (Exception e){
+                Log.d("TAG_X", "doInBackground: "+e);
+            }
             return null;
         }
 
